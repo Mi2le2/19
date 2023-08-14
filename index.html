@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Table</title>
+</head>
+<body>
+    <button onclick="addRandomNumber()">Добавить число</button>
+    <table border="1" id="randomTable"></table>
+
+    <script>
+        // Создание массива из 30 случайных чисел от 0 до 99
+        let randomNumbers = Array.from({ length: 30 }, () => Math.floor(Math.random() * 100));
+
+        const table = document.getElementById('randomTable');
+        populateTable();
+
+        function populateTable() {
+            table.innerHTML = '';  // очистка таблицы
+
+            for (let i = 0; i < randomNumbers.length / 6; i++) {
+                let row = table.insertRow(i);
+                for (let j = 0; j < 6 && (i * 6 + j) < randomNumbers.length; j++) {
+                    let cell = row.insertCell(j);
+                    let value = randomNumbers[i * 6 + j];
+                    cell.textContent = value;
+
+                    // Если число 50 или больше, покрасить ячейку в оранжевый цвет
+                    if (value >= 50) {
+                        cell.style.backgroundColor = 'orange';
+                    }
+                }
+            }
+        }
+
+        function addRandomNumber() {
+            // Добавление случайного числа в массив
+            randomNumbers.push(Math.floor(Math.random() * 100));
+            populateTable();
+        }
+    </script>
+</body>
+</html>
